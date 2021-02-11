@@ -28,7 +28,7 @@ let seq5;
 let seq6;
 let seq7;
 
-
+let currentlyPlaying = false;
 let sequencer = {
   "currentlyPlaying": false,
 
@@ -48,17 +48,23 @@ let sequencer = {
   },
 
   sequenceToggle(e) {
-
-    let gridNumberY = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode);
-    let gridNumberX = Array.from(e.target.parentNode.children).indexOf(e.target);
+    let gridNumberY;
+    let gridNumberX;
+    if (e.target.className === "toggle-off" || e.target.className === "toggle-on") {
+      gridNumberY = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode);
+      gridNumberX = Array.from(e.target.parentNode.children).indexOf(e.target);
+    }
+    
 
     if (e.target.className === "toggle-off") {
-      let target = document.querySelectorAll(".note-row")
+      
       for (i = 0; i < this.sequence.length; i++) {
           this.sequence[i][gridNumberX] = null;
           // console.log(e.target.parentElement.parentElement.children[i].children[gridNumberX].className = "toggle-off");
           // console.log(Array.from(e.target.parentNode.parentNode.children[i]).indexOf());
           // console.log(target[1].children)
+
+          e.target.parentElement.parentElement.children[i].children[gridNumberX].className = "toggle-off"
       }
       
       e.target.className = "toggle-on";
@@ -148,6 +154,7 @@ let sequencer = {
   },
 
   sequenceStop() {
+    Tone.Transport.stop();
     seq0.stop();
     seq1.stop();
     seq2.stop();
@@ -158,28 +165,38 @@ let sequencer = {
 
     console.log("stopped!");
 
-    Tone.Transport.stop();
+    
 
   }
 }
 
+
+
+document.querySelector("#start-button")?.addEventListener('click', async () => {
+	await Tone.start()
+  document.querySelector("#splash-screen").style.display = "none";
+  document.querySelector("#beat-maker").style.visibility = "visible";
+	console.log('audio is ready')
+})
+
 document.addEventListener("click", (e) => {
-  if (e.target.className === "toggle-off" || "toggle-on") {
-    sequencer.sequenceToggle(e);
-  }
-  if (e.target.id === "play") {
-    if (!sequencer.currentlyPlaying) {
-      sequencer.sequencePlay();
-      sequencer.currentlyPlaying = true;
-    }
-
-  }
-  if (e.target.id === "stop") {
-    if (sequencer.currentlyPlaying) {
+  if (e.target.id === "stop" || e.target.id === "stop-icon") {
+    if (currentlyPlaying) {
       sequencer.sequenceStop();
-      sequencer.currentlyPlaying = false;
+      currentlyPlaying = false;
     }
 
+  }
+  if (e.target.id === "play" || e.target.id === "play-icon") {
+    if (!currentlyPlaying) {
+      sequencer.sequencePlay();
+      currentlyPlaying = true;
+    }
+
+  }
+  
+  if (e.target.className === "toggle-off" || e.target.className === "toggle-on") {
+    sequencer.sequenceToggle(e);
   }
 
 })
