@@ -80,8 +80,8 @@ let sequencer = {
   },
 
   sequenceRender() {
-    // Tone.Transport.stop();
-    // Tone.Transport.start();
+    Tone.Transport.stop();
+    Tone.Transport.start();
     
     for (i = 0; i < this.sequence.length; i++) {
       this.sequence[i].forEach((currentValue, index) => {
@@ -112,39 +112,31 @@ let sequencer = {
 
   sequencePlay() {
     console.log("playing!");
-    this.sequenceRender();
 
+    this.sequenceRender();
     seq0 = new Tone.Sequence((time, note) => {
       synth0.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[0]).start();
     seq1 = new Tone.Sequence((time, note) => {
       synth1.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[1]).start();
     seq2 = new Tone.Sequence((time, note) => {
       synth2.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[2]).start();
     seq3 = new Tone.Sequence((time, note) => {
       synth3.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[3]).start();
     seq4 = new Tone.Sequence((time, note) => {
       synth4.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[4]).start();
     seq5 = new Tone.Sequence((time, note) => {
       synth5.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[5]).start();
     seq6 = new Tone.Sequence((time, note) => {
       synth6.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[6]).start();
     seq7 = new Tone.Sequence((time, note) => {
       synth6.triggerAttackRelease(note, 0.1, time);
-      // subdivisions are given as subarrays
     }, sequencer.sequence[7]).start();
 
 
@@ -162,11 +154,8 @@ let sequencer = {
     seq4.stop();
     seq5.stop();
     seq6.stop();
-
-    console.log("stopped!");
-
     
-
+    console.log("stopped!");
   }
 }
 
@@ -175,17 +164,21 @@ let sequencer = {
 document.querySelector("#start-button")?.addEventListener('click', async () => {
 	await Tone.start()
   document.querySelector("#splash-screen").style.display = "none";
-  document.querySelector("#beat-maker").style.visibility = "visible";
+  document.querySelector("#beat-maker").style.display = "flex";
 	console.log('audio is ready')
 })
 
+document.addEventListener("mousedown", (e) => {
+  if (e.target.className === "toggle-off" || e.target.className === "toggle-on") {
+    sequencer.sequenceToggle(e);
+  }
+})
 document.addEventListener("click", (e) => {
   if (e.target.id === "stop" || e.target.id === "stop-icon") {
     if (currentlyPlaying) {
       sequencer.sequenceStop();
       currentlyPlaying = false;
     }
-
   }
   if (e.target.id === "play" || e.target.id === "play-icon") {
     if (!currentlyPlaying) {
@@ -194,9 +187,24 @@ document.addEventListener("click", (e) => {
     }
 
   }
-  
-  if (e.target.className === "toggle-off" || e.target.className === "toggle-on") {
-    sequencer.sequenceToggle(e);
-  }
+})
 
+
+
+
+// buggy code to implement drag to draw
+
+let mouseDown = 0;
+document.body.onmousedown = function() { 
+  ++mouseDown;
+}
+document.body.onmouseup = function() {
+  --mouseDown;
+}
+
+console.log(document.onmousedown)
+document.addEventListener("mouseover", (e) => {
+  if (mouseDown === 1) {
+    sequencer.sequenceToggle(e);
+      }
 })
