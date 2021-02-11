@@ -5,9 +5,12 @@ body {
   margin: auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  width: 600px;
 }
 
 h2 {
+  display: block;
   margin: auto;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
