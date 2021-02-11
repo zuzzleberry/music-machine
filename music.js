@@ -1,8 +1,6 @@
 // import * as Tone from 'tone'
 // let Tone = require("tone");
 
-const { Tone } = require("tone/build/esm/core/Tone");
-
 const synth0 = new Tone.Synth().toDestination();
 const synth1 = new Tone.Synth().toDestination();
 const synth2 = new Tone.Synth().toDestination();
@@ -58,15 +56,11 @@ let sequencer = {
       let target = document.querySelectorAll(".note-row")
       for (i = 0; i < this.sequence.length; i++) {
           this.sequence[i][gridNumberX] = null;
-          // e.target.parentNode.parentNode[i]
-
-          console.log(e.target.parentElement.parentElement.children[i].children[gridNumberX].className = "toggle-off");
-          console.log(Array.from(e.target.parentNode.parentNode.children[i]).indexOf());
-          console.log(target[1].children)
-          // target[1].parentElement
+          // console.log(e.target.parentElement.parentElement.children[i].children[gridNumberX].className = "toggle-off");
+          // console.log(Array.from(e.target.parentNode.parentNode.children[i]).indexOf());
+          // console.log(target[1].children)
       }
       
-
       e.target.className = "toggle-on";
       this.sequence[gridNumberY][gridNumberX] = 1;
       
@@ -75,7 +69,7 @@ let sequencer = {
       this.sequence[gridNumberY][gridNumberX] = null;
     }
     this.sequenceRender();
-    console.log(this.sequence)
+
 
   },
 
@@ -171,14 +165,12 @@ let sequencer = {
 
 document.addEventListener("click", (e) => {
   if (e.target.className === "toggle-off" || "toggle-on") {
-    
     sequencer.sequenceToggle(e);
   }
   if (e.target.id === "play") {
     if (!sequencer.currentlyPlaying) {
       sequencer.sequencePlay();
       sequencer.currentlyPlaying = true;
-      // e.target.style.background = "red"
     }
 
   }
@@ -189,5 +181,5 @@ document.addEventListener("click", (e) => {
     }
 
   }
-  console.log(e.target)
+
 })
