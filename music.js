@@ -74,9 +74,7 @@ let sequencer = {
       e.target.className = "toggle-off";
       this.sequence[gridNumberY][gridNumberX] = null;
     }
-    this.sequenceRender();
-
-
+  
   },
 
   sequenceRender() {
