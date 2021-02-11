@@ -169,21 +169,24 @@ document.querySelector("#start-button")?.addEventListener('click', async () => {
 })
 
 document.addEventListener("mousedown", (e) => {
-  if (e.target.className === "toggle-off" || e.target.className === "toggle-on") {
-    sequencer.sequenceToggle(e);
+  if (sequencer.currentlyPlaying !== true) {
+    console.log(Boolean(sequencer.currentlyPlaying))
+    if (e.target.className === "toggle-off" || e.target.className === "toggle-on") {
+      sequencer.sequenceToggle(e);
+    }
   }
 })
 document.addEventListener("click", (e) => {
   if (e.target.id === "stop" || e.target.id === "stop-icon") {
-    if (currentlyPlaying) {
+    if (sequencer.currentlyPlaying) {
       sequencer.sequenceStop();
-      currentlyPlaying = false;
+      sequencer.currentlyPlaying = false;
     }
   }
   if (e.target.id === "play" || e.target.id === "play-icon") {
-    if (!currentlyPlaying) {
+    if (!sequencer.currentlyPlaying) {
       sequencer.sequencePlay();
-      currentlyPlaying = true;
+      sequencer.currentlyPlaying = true;
     }
 
   }
@@ -194,17 +197,20 @@ document.addEventListener("click", (e) => {
 
 // buggy code to implement drag to draw
 
-let mouseDown = 0;
-document.body.onmousedown = function() { 
-  ++mouseDown;
-}
-document.body.onmouseup = function() {
-  --mouseDown;
-}
+// let mouseDown = 0;
+// document.body.onmousedown = function() { 
+//   ++mouseDown;
+// }
+// document.body.onmouseup = function() {
+//   --mouseDown;
+// }
 
-console.log(document.onmousedown)
-document.addEventListener("mouseover", (e) => {
-  if (mouseDown === 1) {
-    sequencer.sequenceToggle(e);
-      }
-})
+// console.log(document.onmousedown)
+// document.addEventListener("mouseover", (e) => {
+//   if (mouseDown === 1) {
+//     if (sequencer.currentlyPlaying !== true) {
+//       sequencer.sequenceToggle(e);
+//     }
+    
+//       }
+// })
