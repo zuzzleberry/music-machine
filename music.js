@@ -30,9 +30,10 @@ let seq0;
 // let seq7;
 
 let sequencer = {
-  "currentlyPlaying": false,
+  currentlyPlaying: false,
+  octave: 3,
 
-  "sequence": [
+ sequence: [
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
@@ -43,10 +44,10 @@ let sequencer = {
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
   ],
 
-  "monoSequence": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+  monoSequence: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
 
-  "scales": {
-    "A": [440.00, 493.88, 523.25, 587.33, 659.26, 698.46, 783.99, 880.00]
+  scales: {
+    A: [440.00, 493.88, 523.25, 587.33, 659.26, 698.46, 783.99, 880.00]
   },
 
   sequenceToggle(e) {
@@ -114,6 +115,13 @@ let sequencer = {
       }
     }
   },
+  // monoSequenceOctUp(item, index) {
+  //   this.monoSequence.forEach(this.monoSequence)
+  // },
+  // monoSequenceOctDown() {
+  //   console.log()
+  // },
+
 
   sequencePlay() {
     console.log("playing!");
@@ -189,6 +197,11 @@ document.addEventListener("click", (e) => {
       sequencer.currentlyPlaying = true;
     }
   }
+  // if (e.target.id === "oct-up") {
+  //   sequencer.monoSequenceOctUp();
+  // } else if (e.target.id === "oct-down") {
+  //   sequencer.monoSequenceOctDown();
+  // }
 })
 
 
