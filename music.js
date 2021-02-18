@@ -33,7 +33,7 @@ let sequencer = {
   currentlyPlaying: false,
   octave: 3,
 
- sequence: [
+  sequence: [
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
