@@ -1,6 +1,6 @@
 ## music-machine
 
-https://soundboi.netlify.app/
+View here: https://soundboi.netlify.app/
 
 A basic synth sequencer made using Tone.js
 
